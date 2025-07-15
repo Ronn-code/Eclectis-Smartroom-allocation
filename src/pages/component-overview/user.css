@@ -1,0 +1,93 @@
+.user-container{
+    font-family: Roboto;
+    
+
+}
+a{
+    text-decoration: none;
+}
+.title{
+   display: flex;
+   align-items: center; 
+   gap: 1.5rem;
+}
+.title h2{
+    font-size: 1.2em;
+    font-weight: 400;
+    padding: 0;
+    margin: 0;
+    
+}
+.title span{
+    color: rgb(4,97,46);
+}
+#add-btn{
+    background: rgb(4,97,46);
+    align-items: center;
+    display: flex;
+    gap: 0.3rem;
+    color: white;
+    font-weight: 400;
+    border: none;
+    height: 2.4rem;
+    width: 10rem;
+    border-radius: 4px;
+    padding-left: 1.6rem;
+    font-size: 0.8rem;
+}
+#add-btn:hover{
+    background: none;
+    border: 2px solid rgb(4,97,46);
+    color: #000;
+}
+ .user-container table{
+    margin-top: 1rem;
+    width: 100%;
+    background: white;
+    box-shadow: 2px 2px 3px gray;
+    padding: 1rem;
+    padding-left: 2rem;
+    border-collapse: collapse;
+}
+.user-container table thead{
+    background-color: gray;
+    color: #e7e6e6;
+    height: 3rem;
+}
+.user-container table tbody td{
+    border: none;
+    height: 2.2rem;
+    font-size: 0.75rem;
+    padding-left: 1rem;
+    padding-top: 0.7rem;
+    padding-bottom: 1rem;
+}
+.user-container table thead th{
+    text-align: start;
+    font-size: 0.8rem;
+    padding-left: 1rem;
+}
+
+.actions{
+    display: flex;
+    gap: 2rem;
+    border: none;
+}
+#editing-btn,#delete-btn{
+    height: 1.8rem;
+    width: 4rem;
+    border-radius: 4px;
+    background: rgba(158, 7, 7, 0.726);
+    cursor: pointer;
+    transition: all 300ms ease;
+    border: none;
+    color: rgb(231, 231, 231);
+}
+#editing-btn{
+    background: rgb(4,97,46);
+}
+#editing-btn:hover,#delete-btn:hover{
+    background: none;
+    color: #000;
+    border: 2px solid rgb(4,97,46);
+}

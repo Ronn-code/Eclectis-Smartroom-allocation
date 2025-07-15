@@ -1,0 +1,144 @@
+.admin-container{
+    display: grid;
+    grid-template-columns: 20rem auto;
+    font-family: Roboto;
+}
+.view-user-container{
+    font-family: Roboto;
+    width: 70%;
+    margin-top: 10%;
+    margin-left: 2rem;
+}
+.admin-container h2{
+    color: rgb(4, 97, 46);
+    font-size: 1.4rem;
+    margin-bottom: 2rem;
+    margin-left: 2rem;
+}
+.admin-aside{
+    background: rgb(233, 231, 231);
+    margin-top: 0;
+}
+.side-links{
+    list-style: none;
+    display: block;
+}
+.details{
+    display: flex;
+    align-items: center;
+    gap: 1.4rem;
+}
+.details a{
+    text-decoration: none;
+    color: #000;
+}
+.details span{
+    color: rgb(4, 97, 46);
+    cursor: pointer;
+}
+.details h4{
+    font-size: 0.9rem;
+    font-weight: 400;
+    cursor: pointer;
+}
+.side-links li:last-child{
+  margin-top: 6rem;
+}
+
+main{
+    margin-left: 1rem;
+    margin-top: 2rem;
+}
+.upper-main{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+.upper-div,.upper-div-two,.upper-div-three{
+    background: rgb(118, 157, 149);
+    border-radius: 20px;
+    height: 8rem;
+    width: 14rem;
+    box-shadow: 2px 2px 3px gray;
+    transition: all 300ms ease;
+}
+.upper-div-two{
+    background: rgb(253, 196, 207);
+}
+.upper-div-three{
+    background: rgb(252, 217, 187);
+}
+.upper-div:hover,.upper-div-two:hover,.upper-div-three:hover{
+    background: rgb(204, 205, 204);
+}
+.upper-div h3,.upper-div-two h3,.upper-div-three h3{
+    margin-left: 1.0rem;
+    font-size: 1rem;
+    color: #000;
+}
+.upper-div h1,.upper-div-two h1,.upper-div-three h1{
+    font-size: 1.4rem;
+    color: rgb(4, 97, 46); 
+    margin-left: 1.0rem;  
+}.body-main{
+    width: 100%;
+}
+.body-main h3{
+    margin-left: 0.7rem;
+    padding: 0.7rem;
+    margin: 0;
+}
+.body-main table,
+.view-user-container table{
+    background: white;
+    border-radius: 20px;
+    padding: 1rem;
+    border-radius: 0px;
+    box-shadow: 2px 2px 3px gray;
+    width: 100%;
+    border-collapse: collapse;
+}
+.body-main table thead,
+.view-user-container table thead{
+    background-color: rgb(4, 97, 46);
+    color: #e7e6e6;
+    height: 3rem;
+}
+.body-main table th:nth-child(1),
+.body-main table td:nth-child(1) {
+  width: 240px;
+}
+
+.body-main table th:nth-child(2),
+.body-main table td:nth-child(2) {
+  width: 120px;
+}
+.body-main table tbody td,
+.view-user-container table tbody td{
+    height: 2.4rem;
+    border: none;
+    font-size: 0.76rem; 
+    padding-left: 1rem;
+    padding-top: 0.7rem;
+    padding-bottom: 1rem;
+}
+.body-main table thead th,
+.view-user-container table thead th{
+    text-align: start;
+    padding-left: 1rem;
+    font-size: 0.8rem;
+}
+#review-btn{
+    height: 1.8rem;
+    width: 4rem;
+    margin-right: 2rem;
+    border-radius: 6px;
+    border: 1px solid rgb(4, 97, 46);
+    background: none;
+    color: rgb(4, 97, 46);
+    cursor: pointer;
+}
+#review-btn:hover{
+    background: rgb(4, 97, 46);
+    color: white;
+}

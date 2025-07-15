@@ -1,0 +1,38 @@
+.rooms-container{
+    font-family: Roboto;
+}
+.bars{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+.bars a{
+    text-decoration: none;
+}
+.rooms-container table{
+    margin-top: 1rem;
+    width: 100%;
+    background: white;
+    box-shadow: 2px 2px 3px gray;
+    padding: 1rem;
+    padding-left: 2rem;
+    border-collapse: collapse;
+}
+.rooms-container table tbody td{
+    border: none;
+    height: 2.2rem;
+    font-size: 0.75rem;
+    padding-left: 1rem;
+    padding-top: 0.7rem;
+    padding-bottom: 1rem;
+}
+.rooms-container table thead th{
+    text-align: start;
+    font-size: 0.8rem;
+    padding-left: 1rem;
+}
+.rooms-container table thead{
+    background-color: gray;
+    color: #e7e6e6;
+    height: 3rem;
+}

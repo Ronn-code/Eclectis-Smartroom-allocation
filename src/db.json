@@ -1,0 +1,217 @@
+{
+  "rooms": [
+    {
+      "roomNumber": "RM101",
+      "roomType": "LABORATORY",
+      "name": "Physics Lab",
+      "capacity": "250",
+      "status": "AVAILABLE",
+      "building": "Science Block",
+      "id": "1"
+    },
+    {
+      "roomNumber": "RM202",
+      "roomType": "CONFERENCE ROOM",
+      "name": "Main Conference Room",
+      "capacity": 15,
+      "status": "OCCUPIED",
+      "building": "Admin Block",
+      "id": "2"
+    },
+    {
+      "roomNumber": "rm20",
+      "roomType": "Laboratory",
+      "name": "Computer lab",
+      "capacity": "45",
+      "status": "available",
+      "building": "Admin block",
+      "id": "b445"
+    },
+    {
+      "roomNumber": "RT32",
+      "roomType": "Business Hall",
+      "name": "Lab 2",
+      "capacity": "340",
+      "status": "available",
+      "building": "Tuition block",
+      "id": "53c1"
+    },
+    {
+      "id": "cc60",
+      "roomNumber": "Rm210",
+      "roomType": "Music Class",
+      "name": "Class",
+      "capacity": "232",
+      "status": "available",
+      "building": "Kilele block"
+    },
+    {
+      "id": "6c12",
+      "roomNumber": "Rm33",
+      "roomType": "BoardRoom",
+      "name": "Boardroom",
+      "capacity": "55",
+      "status": "available",
+      "building": "Tuition block"
+    }
+  ],
+  "users": [
+    {
+      "fullName": "Alice Maina",
+      "username": "alice",
+      "email": "alicemaina@gmail.com",
+      "department": "Computer Science",
+      "role": "LECTURER",
+      "totalBookings": 3,
+      "usageStreak": "4",
+      "createdAt": "2025-07-03T03:40:00",
+      "id": "1"
+    },
+    {
+      "fullName": "Brian Kimani",
+      "username": "brian",
+      "email": "brian@example.com",
+      "department": "Engineering",
+      "role": "Admin",
+      "totalBookings": 1,
+      "id": "2",
+      "usageStreak": "5",
+      "createdAt": "2025-07-03T03:40:00"
+    },
+    {
+      "fullName": "Jess Chomba",
+      "username": "jess",
+      "email": "jesschomba232@gmail.com",
+      "department": "Education",
+      "role": "Lecturer",
+      "totalBookings": "10",
+      "usageStreak": "21",
+      "createdAt": "2025-07-03T03:40:00",
+      "id": "c130"
+    },
+    {
+      "fullName": "Tatiana Naomi",
+      "username": "tati",
+      "email": "hellennaomi001@gmail.com",
+      "department": "Education",
+      "role": "Lecturer",
+      "totalBookings": "1",
+      "usageStreak": "6",
+      "createdAt": "2025-07-04T09:40:00",
+      "id": "974c"
+    },
+    {
+      "fullName": "Festus Kyalo",
+      "username": "Paps",
+      "email": "hellennaomi001@gmail.com",
+      "department": "Computer science",
+      "role": "LECTURER",
+      "totalBookings": "12",
+      "usageStreak": "2",
+      "createdAt": "2025-07-03",
+      "id": "c28c"
+    },
+    {
+      "id": "6104",
+      "fullName": "ann Sam",
+      "username": "annie",
+      "email": "anniesam@gmail.com",
+      "department": "Engineering",
+      "role": "lecturer",
+      "totalBookings": "12",
+      "usageStreak": "3",
+      "createdAt": "2025-07-03T03:40:00"
+    },
+    {
+      "id": "62a6",
+      "email": "brian@example.com",
+      "password": "4545"
+    },
+    {
+      "id": "fea9",
+      "email": "brian@example.com",
+      "password": "4545"
+    },
+    {
+      "id": "7a66",
+      "email": "brian@example.com",
+      "password": "4545"
+    },
+    {
+      "id": "7770",
+      "email": "brian@example.com",
+      "password": "4545"
+    },
+    {
+      "id": "f5a9",
+      "email": "brian@example.com",
+      "password": "4545"
+    },
+    {
+      "id": "6745",
+      "email": "brian@example.com",
+      "password": "ADMIN"
+    }
+  ],
+  "bookings": [
+    {
+      "id": "6c34",
+      "startTime": "15:09",
+      "endTime": "15:12",
+      "roomNumber": "RM202",
+      "status": "OCCUPIED",
+      "purpose": "teaching",
+      "notes": "carry calc"
+    },
+    {
+      "id": "e872",
+      "startTime": "15:10",
+      "endTime": "19:14",
+      "roomNumber": "RT32",
+      "status": "available",
+      "purpose": "computer practicals",
+      "notes": "bring a laptop"
+    },
+    {
+      "id": "3220",
+      "startTime": "13:30",
+      "endTime": "01:30",
+      "roomNumber": "RM101",
+      "status": "AVAILABLE",
+      "purpose": "programming",
+      "notes": "bring a laptop"
+    }
+  ],
+  "equipment": [
+    {
+      "name": "Projector",
+      "type": "PROJEctor",
+      "description": "HD projector with HDMI support",
+      "id": "1"
+    },
+    {
+      "name": "WHIteboard",
+      "type": "WHITEBOARD",
+      "description": "Magnetic whiteboard with markers",
+      "id": "2"
+    },
+    {
+      "name": "visualizer",
+      "type": "digital camera",
+      "description": "visuallises physical docs",
+      "id": "6d81"
+    },
+    {
+      "name": "smart podium",
+      "type": "(screens,light,projector",
+      "description": "centralized control of all technology",
+      "id": "6352"
+    },
+    {
+      "id": "14af",
+      "name": "SmartBoard",
+      "type": "smartboard",
+      "description": "40-inch whiteboard"
+    }
+  ]
+}

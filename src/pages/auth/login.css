@@ -1,0 +1,43 @@
+.login-page{
+    height: 70vh;
+    margin-top: 5rem;
+    margin-left: 30%;
+    width: 30%;
+    background: rgb(255, 255, 255);
+    box-shadow: 2px 2px 4px #333;
+}
+.top-login{
+    display: block;
+    text-align: center;
+}
+.top-login img{
+    height: 4rem;
+    border-radius: 50%;
+    margin-top: 2rem;
+}
+.top-login h2{
+    font-size: 1.4rem;
+    margin-left: 1rem;
+    margin-bottom: 2rem;
+}
+.inputs{
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   margin-left: 2rem;
+   gap: 1rem;
+}
+input{
+    height: 2rem;
+    width: 70%;
+}
+#login-btn{
+    width: 68%;
+    margin-left: 5rem;
+    margin-top: 1.4rem;
+    height: 2rem;
+    border-radius: 6px;
+    border: none;
+    background-color: rgb(7, 90, 46);
+    color: white;
+}
