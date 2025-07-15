@@ -1,5 +1,5 @@
 import './login.css';
-import {Outlet, useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import {useState} from 'react'
 import profile from './profile3.jpg';
 
@@ -60,7 +60,6 @@ function Login() {
  
     const [rememberMe, setRememberMe] = useState(false);
   return (
-    <Outlet>
     <div className='login-page'>
         <div className="top-login">
            <img src={profile}></img>
@@ -78,7 +77,6 @@ function Login() {
         <button id='login-btn'onClick={handleLogin}>Login</button>
         
     </div>
-    </Outlet>
   )
 }
 

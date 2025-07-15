@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { Link } from 'react-router';
 
 // material-ui
 import List from '@mui/material/List';
@@ -18,37 +19,26 @@ import WalletOutlined from '@ant-design/icons/WalletOutlined';
 export default function ProfileTab() {
   return (
     <List component="nav" sx={{ p: 0, '& .MuiListItemIcon-root': { minWidth: 32 } }}>
+      <Link to='/settings'style={{color:'black',textDecoration:'none'}}>
       <ListItemButton>
         <ListItemIcon>
           <EditOutlined />
         </ListItemIcon>
         <ListItemText primary="Edit Profile" />
-      </ListItemButton>
+      </ListItemButton></Link>
       <ListItemButton>
         <ListItemIcon>
           <UserOutlined />
         </ListItemIcon>
         <ListItemText primary="View Profile" />
       </ListItemButton>
-
-      <ListItemButton>
-        <ListItemIcon>
-          <ProfileOutlined />
-        </ListItemIcon>
-        <ListItemText primary="Social Profile" />
-      </ListItemButton>
-      <ListItemButton>
-        <ListItemIcon>
-          <WalletOutlined />
-        </ListItemIcon>
-        <ListItemText primary="Billing" />
-      </ListItemButton>
+      <Link to='/login'style={{color:'black',textDecoration:'none'}}>
       <ListItemButton>
         <ListItemIcon>
           <LogoutOutlined />
         </ListItemIcon>
         <ListItemText primary="Logout" />
-      </ListItemButton>
+      </ListItemButton></Link>
     </List>
   );
 }

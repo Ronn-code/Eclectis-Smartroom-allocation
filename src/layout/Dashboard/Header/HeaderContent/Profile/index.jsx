@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import { useRef, useState } from 'react';
+import { Link } from 'react-router';
 
 // material-ui
 import { useTheme } from '@mui/material/styles';
@@ -124,18 +125,16 @@ export default function Profile() {
                           <Avatar alt="profile user" src={avatar1} sx={{ width: 32, height: 32 }} />
                           <Stack>
                             <Typography variant="h6">John Doe</Typography>
-                            <Typography variant="body2" color="text.secondary">
-                              UI/UX Designer
-                            </Typography>
                           </Stack>
                         </Stack>
                       </Grid>
                       <Grid>
-                        <Tooltip title="Logout">
+                        <Link to='/login'>
+                        <Tooltip title="Logout" >
                           <IconButton size="large" sx={{ color: 'text.primary' }}>
                             <LogoutOutlined />
                           </IconButton>
-                        </Tooltip>
+                        </Tooltip></Link>
                       </Grid>
                     </Grid>
                   </CardContent>
