@@ -7,6 +7,8 @@ import {createViewDay,createViewWeek,createViewMonthGrid,createViewMonthAgenda} 
 import { createEventsServicePlugin } from '@schedule-x/events-service';   // 👈
 import '@schedule-x/theme-default/dist/index.css';
 
+
+
 export default function CalendarWithBookings() {
 
   const [bookings, setBookings] = useState([]);
@@ -32,9 +34,10 @@ export default function CalendarWithBookings() {
     () =>
       bookings.map(b => ({
         id: String(b.id),
-        title: b.purpose || 'Booking',
         start: toSchedX(b.startTime),
-        end:   toSchedX(b.endTime)
+        end:   toSchedX(b.endTime),
+        title: `Room ${b.roomNumber}`
+
       })),
     [bookings]
   );
@@ -49,7 +52,7 @@ export default function CalendarWithBookings() {
       createViewMonthAgenda()
     ],
     events: [],            // start empty
-    plugins: [eventsService]
+    plugins: [eventsService],
   });
 
   /*  feed the events after fetch ----------------------------------- */
