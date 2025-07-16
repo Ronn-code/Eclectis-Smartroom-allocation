@@ -1,6 +1,6 @@
 
 import MainCard from 'components/MainCard';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export default function Settings() {
@@ -10,32 +10,66 @@ export default function Settings() {
     const[role, setRole]= useState('');
     const[username, setUsername]= useState('');
     const Navigate = useNavigate('');
-
+    
     const isValidEmail = (email) => {
-       return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);};
+    
+    useEffect(() => {
+      const token = localStorage.getItem('token');
+      fetch('https://eclectics-project-production.up.railway.app/api/users/me', {
+        headers: { Authorization: `Bearer ${token}` }
+      })
+      .then(res => res.json())
+      .then(data => {
+        const user = data.Data; 
+        setFullName(user.fullName || '');
+        setEmail(user.email || '');
+        setUsername(user.username || '');
+        setRole(user.role || '');
+      })
+      .catch(err => console.error(err));
+    }, []);
+    
+    const handleSave = () => {
+      if (!isValidEmail(email)) {
+        alert(`Enter a valid email`);
+        return;
+      }
+      if (!fullname) {
+        alert(`Enter your Name`);
+        return;
+      }
+      if (!role) {
+        alert(`Enter your role`);
+        return;
+      }
+    
+      const updatedData = {fullName: fullname,email: email,username: username,role: role};
+    
+      const token = localStorage.getItem('token');
+      fetch('https://eclectics-project-production.up.railway.app/api/users/me', {
+        method: 'PUT', 
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+          },
+        body: JSON.stringify(updatedData)
+      })
+      .then(res => res.json())
+      .then(response => {
+        if (response.Status === 1) {
+          alert('Account details updated successfully');
+          Navigate('/');
+        } 
+        else {
+          alert('Failed to update account: ' + response.Message);
+        }
+      })
+      .catch(error => {
+        console.error('Error updating account:', error);
+          alert('Something went wrong while updating');
+      });
     };
-
-    const handleSave = () =>{
-        
-
-        if(!isValidEmail(email)) {
-            alert(`Enter a valid email`);
-            return;
-        }
-        if(!fullname){
-            alert(`Enter your Name`);
-            return;
-        }
-        if(!role){
-          alert(`Enter your role`);
-          return;
-        }
-        else{
-            alert(`Updated Account details success`);
-            Navigate('/')
-        }
-    }
-
 
   return (
     <MainCard title="Edit Profile">

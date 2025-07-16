@@ -16,6 +16,7 @@ import avatar1 from 'assets/images/users/avatar-1.png';
 import avatar2 from 'assets/images/users/avatar-2.png';
 import avatar3 from 'assets/images/users/avatar-3.png';
 import avatar4 from 'assets/images/users/avatar-4.png';
+import { useEffect, useState } from 'react';
 
 // avatar style
 const avatarSX = {
@@ -34,9 +35,29 @@ const actionSX = {
   transform: 'none'
 };
 
-
-
 export default function DashboardDefault() {
+
+
+  const [totalActiveUsers, setTotalActiveUsers] = useState('');
+  const [totalActiveRooms, setTotalActiveRooms] = useState('');
+  const [totalUpcomingBookings, setTotalUpcomingBookings] = useState('');
+  const [totalBookingsEver, setTotalBookingsEver] = useState('');
+      useEffect(() => {
+              const token = localStorage.getItem('token');
+              fetch('https://eclectics-project-production.up.railway.app/api/admin/dashboard/stats', {
+                  headers: { Authorization: `Bearer ${token}` }
+              })
+              .then(res => res.json())
+              .then(data => {
+                  const admin = data.Data; 
+                  setTotalActiveUsers(admin.totalActiveUsers || ''),
+                  setTotalActiveRooms(admin.totalActiveRooms || ''),
+                  setTotalUpcomingBookings(admin.totalUpcomingBookings || ''),
+                  setTotalBookingsEver(admin.totalBookingsEver || '')
+              })
+              .catch(err => console.error(err));
+          }, []);
+  
   return (
     <Grid container rowSpacing={4.5} columnSpacing={2.75}>
       {/* row 1 */}
@@ -44,16 +65,16 @@ export default function DashboardDefault() {
         <Typography variant="h5">Dashboard</Typography>
       </Grid>
       <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
-        <AnalyticEcommerce title="Total Active Users" count="4,006" />
+        <AnalyticEcommerce title="Total Active Users" count={totalActiveUsers} />
       </Grid>
       <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
-        <AnalyticEcommerce title="Total Rooms Available" count="10,250"/>
+        <AnalyticEcommerce title="Total Active Rooms"  count={totalActiveRooms}/>
       </Grid>
       <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
-        <AnalyticEcommerce title="Upcoming Bookings" count="18,800" />
+        <AnalyticEcommerce title="Upcoming Bookings" count={totalUpcomingBookings} />
       </Grid>
       <Grid size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
-        <AnalyticEcommerce title="Upcoming Bookings" count="18,800" />
+        <AnalyticEcommerce title="All Bookings Done" count={totalBookingsEver} />
       </Grid>
       
       <Grid sx={{ display: { sm: 'none', md: 'block', lg: 'none' } }} size={{ md: 8 }} />

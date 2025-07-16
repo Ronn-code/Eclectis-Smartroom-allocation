@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router';
 
 // material-ui
@@ -50,6 +50,23 @@ function a11yProps(index) {
 // ==============================|| HEADER CONTENT - PROFILE ||============================== //
 
 export default function Profile() {
+
+
+
+  const [fullName, setFullName] = useState('');
+    useEffect(() => {
+            const token = localStorage.getItem('token');
+            fetch('https://eclectics-project-production.up.railway.app/api/users/me', {
+                headers: { Authorization: `Bearer ${token}` }
+            })
+            .then(res => res.json())
+            .then(data => {
+                const user = data.Data; 
+                setFullName(user.fullName || '')
+            })
+            .catch(err => console.error(err));
+        }, []);
+
   const theme = useTheme();
 
   const anchorRef = useRef(null);
@@ -91,7 +108,7 @@ export default function Profile() {
         <Stack direction="row" sx={{ gap: 1.25, alignItems: 'center', p: 0.5 }}>
           <Avatar alt="profile user" src={avatar1} size="sm" />
           <Typography variant="subtitle1" sx={{ textTransform: 'capitalize' }}>
-            Naomi Ronn
+            {fullName}
           </Typography>
         </Stack>
       </ButtonBase>
@@ -124,7 +141,7 @@ export default function Profile() {
                         <Stack direction="row" sx={{ gap: 1.25, alignItems: 'center' }}>
                           <Avatar alt="profile user" src={avatar1} sx={{ width: 32, height: 32 }} />
                           <Stack>
-                            <Typography variant="h6">John Doe</Typography>
+                            <Typography variant="h6">{fullName}</Typography>
                           </Stack>
                         </Stack>
                       </Grid>

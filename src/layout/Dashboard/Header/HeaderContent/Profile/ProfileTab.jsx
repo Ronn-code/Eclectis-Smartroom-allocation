@@ -32,12 +32,12 @@ export default function ProfileTab() {
         </ListItemIcon>
         <ListItemText primary="View Profile" />
       </ListItemButton>
-      <Link to='/login'style={{color:'black',textDecoration:'none'}}>
+      <Link to='/changepassword'style={{color:'black',textDecoration:'none'}}>
       <ListItemButton>
         <ListItemIcon>
           <LogoutOutlined />
         </ListItemIcon>
-        <ListItemText primary="Logout" />
+        <ListItemText primary="Change Password" />
       </ListItemButton></Link>
     </List>
   );

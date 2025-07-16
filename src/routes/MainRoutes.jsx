@@ -20,6 +20,7 @@ const EditUser = Loadable(lazy(() => import('pages/component-overview/EditUser')
 const EditRoom = Loadable(lazy(() => import('pages/component-overview/EditRoom')));
 const EditResource = Loadable(lazy(() => import('pages/component-overview/EditResource')));
 const ViewUser = Loadable(lazy(() => import('pages/component-overview/ViewUser')));
+const ChangePwdA = Loadable(lazy(() => import('pages/component-overview/ChangePwdA')));
 // render - sample page
 const Settings= Loadable(lazy(() => import('pages/extra-pages/Settings')));
 
@@ -85,6 +86,10 @@ const MainRoutes = {
     {
       path: 'viewuser/:userid',
       element: <ViewUser/>
+    },
+    {
+      path:'changepassword',
+      element: <ChangePwdA/>
     }
   ],
 
