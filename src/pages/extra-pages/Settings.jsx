@@ -9,7 +9,7 @@ export default function Settings() {
     const[email, setEmail]= useState('');
     const[role, setRole]= useState('');
     const[username, setUsername]= useState('');
-    const Navigate = useNavigate('');
+    const navigate = useNavigate();
     
     const isValidEmail = (email) => {
         return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);};
@@ -59,7 +59,7 @@ export default function Settings() {
       .then(response => {
         if (response.Status === 1) {
           alert('Account details updated successfully');
-          Navigate('/');
+          navigate('/');
         } 
         else {
           alert('Failed to update account: ' + response.Message);

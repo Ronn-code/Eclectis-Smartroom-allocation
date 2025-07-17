@@ -12,14 +12,14 @@ const icons = {
 
 const pages = {
   id: 'authentication',
-  title: 'Organization',
+  title: 'Role',
   type: 'group',
   children: [
     {
       id: 'login1',
-      title: 'Departments',
+      title: 'ADMIN',
       type: 'item',
-      url: '/login',
+      url: '/view/profile',
       icon: icons.BankOutlined,
       target: true
     },

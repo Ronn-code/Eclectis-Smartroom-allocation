@@ -9,9 +9,12 @@ import Loadable from 'components/Loadable';
 // jwt auth
 const Lecturer = Loadable(lazy(() => import('pages/component-overview/Lecturer')));
 const AddBooking = Loadable(lazy(() => import('pages/component-overview/AddBooking')));
+const RecurrBooking = Loadable(lazy(() => import('pages/component-overview/RecurrBooking')));
 const MyBookings = Loadable(lazy(() => import('pages/component-overview/MyBookings')));
 const AllRooms = Loadable(lazy(() => import('pages/component-overview/AllRooms')));
 const LecSettings = Loadable(lazy(() => import('pages/component-overview/LecSettings')));
+const ViewProfileStaff = Loadable(lazy(() => import('pages/component-overview/ViewProfileStaff')));
+const ChangePwdL = Loadable(lazy(() => import('pages/component-overview/ChangePwdL')));
 
 
 // ==============================|| AUTH ROUTING ||============================== //
@@ -32,6 +35,10 @@ const LecturerRoutes = {
           element: <AddBooking/>
         },
         {
+          path: "/recurring/booking/:roomid",
+          element: <RecurrBooking/>
+        },
+        {
           path: '/mybookings',
           element: <MyBookings/>
         },
@@ -46,6 +53,14 @@ const LecturerRoutes = {
         {
           path: '/lecsettings',
           element: <LecSettings/>
+        },
+        {
+          path:'view/profile/staff',
+          element: <ViewProfileStaff/>
+        },
+        {
+          path:'change/pwd',
+          element: <ChangePwdL/>
         }
       ]
     }

@@ -3,7 +3,7 @@ import {useState, useEffect} from 'react';
 import profile from './images/profile3.jpg';
 import {Drawer,List,ListItem,ListItemButton,ListItemIcon,ListItemText,Avatar,Typography,Box,Button,TextField,} from '@mui/material';
 
-function AddBooking(){
+function RecurrBooking(){
  
     
 const{roomid} = useParams();
@@ -11,14 +11,13 @@ const[room, setRoom] = useState({});
 const [startTime, setStartTime] = useState('');
 const [endTime, setEndTime] = useState('');
 const [purpose, setPurpose] = useState('');
+const [semesterStartDate, setSemesterStartDate] = useState('');
+const [semesterEndDate, setSemesterEndDate] = useState('');
+const [dayOfWeek, setDayOfWeek] = useState('');
 const [fullName, setFullName] = useState('');
 
 const navigate = useNavigate();
- 
-
-const handleClick = (id)=>{
-    navigate(`/recurring/booking/${id}`);
-}
+  
 
 useEffect(() => {
         const token = localStorage.getItem('token');
@@ -53,10 +52,10 @@ useEffect(() => {
 const handleSave = (e) =>{
     e.preventDefault();
 
-    const booking = {startTime, endTime, purpose,room: { id: Number(roomid) }};
+    const booking = {dayOfWeek,semesterStartDate,semesterEndDate,startTime, endTime, purpose,roomId:  String(roomid) };
     console.log(booking);
     const token = localStorage.getItem('token')
-    fetch('https://eclectics-project-production.up.railway.app/api/bookings',{
+    fetch('https://eclectics-project-production.up.railway.app/api/bookings/recurring',{
         method: 'POST',
         headers: {
             "content-type" : "application/json",
@@ -100,13 +99,13 @@ const handleSave = (e) =>{
                         </ListItemIcon>
                         <ListItemText primary="Dashboard" style={{color:'black'}}/>
                     </ListItemButton>
-                    <ListItemButton component={Link} to="/login"style={{display:'flex',gap:'1rem',marginBottom:'0.8rem'}}>
+                    <ListItemButton component={Link} to="/view/profile/staff"style={{display:'flex',gap:'1rem',marginBottom:'0.8rem'}}>
                         <ListItemIcon>
                             <span className="material-icons"style={{color:'rgb(1,97,46)'}}>person</span>
                         </ListItemIcon>
                         <ListItemText primary="Profile" style={{color:'black'}}/>
                     </ListItemButton>
-                    <ListItemButton component={Link} to="/setting"style={{display:'flex',gap:'1rem',marginBottom:'0.8rem'}}>
+                    <ListItemButton component={Link} to="/lecsetting"style={{display:'flex',gap:'1rem',marginBottom:'0.8rem'}}>
                         <ListItemIcon>
                             <span className="material-icons"style={{color:'rgb(1,97,46)'}}>settings</span>
                         </ListItemIcon>
@@ -131,14 +130,14 @@ const handleSave = (e) =>{
                 </List>
             </Drawer>
             <main style={{background:'white',padding:'1rem',
-                        height:'160px',width:'80%',alignContent:'center',
+                        height:'250px',width:'80%',alignContent:'center',
                          marginTop:'12rem',marginLeft:'6rem'}}>
                 <div className="input-fields"style={{ display: 'grid',
                                               gridTemplateColumns: 'repeat(3, 1fr)',
                                               gap:'2rem'}}>
                     <div className="start" style={{display:'flex', flexDirection:'column'}}>
                         <label htmlFor='start'>StartTime</label>
-                        <input type='datetime-local'
+                        <input type='time'
                                id='start'
                                value={startTime}
                                onChange={(e)=>setStartTime(e.target.value)}
@@ -147,7 +146,7 @@ const handleSave = (e) =>{
                     </div>
                     <div className="end" style={{display:'flex', flexDirection:'column'}}>
                         <label htmlFor='end'>EndTime</label>
-                        <input type='datetime-local'
+                        <input type='time'
                                id='end'
                                value={endTime}
                                onChange={(e)=>setEndTime(e.target.value)}
@@ -162,19 +161,47 @@ const handleSave = (e) =>{
                                onChange={(e)=>setPurpose(e.target.value)}
                                placeholder='debbuging'
                                style={{height:'2rem',width:'12rem'}}></input>
-                    </div>  
+                    </div>
+                    <div className="start" style={{display:'flex', flexDirection:'column'}}>
+                        <label htmlFor='start'>Semester StartDate</label>
+                        <input type='date'
+                               id='start'
+                               value={semesterStartDate}
+                               onChange={(e)=>setSemesterStartDate(e.target.value)}
+                               placeholder='2025-07-06'
+                               style={{height:'2rem',width:'12rem'}}></input>
+                    </div>
+                    <div className="end" style={{display:'flex', flexDirection:'column'}}>
+                        <label htmlFor='end'>Semester EndDate</label>
+                        <input type='date'
+                               id='end'
+                               value={semesterEndDate}
+                               onChange={(e)=>setSemesterEndDate(e.target.value)}
+                               placeholder='2025-10-08'
+                               style={{height:'2rem',width:'12rem'}}></input>
+                    </div>
+                    <div className="day"style={{display:'flex', flexDirection:'column'}}>
+                        <label htmlFor='day'>Day of Week</label>
+                        <select
+                               id='day'
+                               value={dayOfWeek}
+                               onChange={(e)=>setDayOfWeek(e.target.value)}
+                               style={{height:'2rem',width:'12rem'}}>
+                                <option value=''disabled>Select a day</option>
+                                <option value='MONDAY'>Monday</option>
+                                <option value='TUESDAY'>Tuesday</option>
+                                <option value='WEDNESDAY'>Wednesday</option>
+                                <option value='THURDAY'>Thursday</option>
+                                <option value='FRIDAY'>Friday</option>
+                        </select>        
+                    </div>    
                 </div>
-                <div className="btns"style={{display:'flex',gap:'6.2rem'}}>
-                    <button id='add' onClick={handleSave}
-                    style={{height:'2rem',width:'12rem',background:'rgb(7, 90, 46)',
-                    color:'#ececec',fontSize:'0.8rem',border:'none',marginTop:'2rem'}}>Book Once</button>
-                    <button id='add' onClick={()=> handleClick(roomid)}
-                    style={{height:'2rem',width:'12rem',background:'rgba(156, 92, 8, 1)',
-                    color:'#ececec',fontSize:'0.8rem',border:'none',marginTop:'2rem'}}>Add Reccuring</button>
-                </div>
+                <button id='add' onClick={handleSave}
+                        style={{height:'2rem',width:'12rem',background:'rgb(7, 90, 46)',
+                         color:'#ececec',fontSize:'0.8rem',border:'none',marginTop:'2rem'}}>Add Booking</button>
                 
             </main>
         </div>
     );
 }
-export default AddBooking;
+export default RecurrBooking;

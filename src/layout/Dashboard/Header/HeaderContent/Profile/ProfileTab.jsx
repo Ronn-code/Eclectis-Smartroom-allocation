@@ -26,13 +26,14 @@ export default function ProfileTab() {
         </ListItemIcon>
         <ListItemText primary="Edit Profile" />
       </ListItemButton></Link>
+      <Link to='/view/profile'style={{color:'black',textDecoration:'none'}}>
       <ListItemButton>
         <ListItemIcon>
           <UserOutlined />
         </ListItemIcon>
         <ListItemText primary="View Profile" />
-      </ListItemButton>
-      <Link to='/changepassword'style={{color:'black',textDecoration:'none'}}>
+      </ListItemButton></Link>
+      <Link to='/change/password'style={{color:'black',textDecoration:'none'}}>
       <ListItemButton>
         <ListItemIcon>
           <LogoutOutlined />

@@ -11,10 +11,24 @@ import {Drawer,List,ListItem,ListItemButton,ListItemIcon,ListItemText,Avatar,Typ
 function AllRooms() {
 
 const [rooms, setRooms] = useState([]);
+const [fullName,setFullName] = useState('');
 
 const displayDetails = (id) =>{
     navigate(`/addbooking/${id}`);
 }
+
+useEffect(() => {
+        const token = localStorage.getItem('token');
+        fetch('https://eclectics-project-production.up.railway.app/api/users/me', {
+            headers: { Authorization: `Bearer ${token}` }
+        })
+        .then(res => res.json())
+        .then(data => {
+            const user = data.Data; 
+            setFullName(user.fullName || '')
+        })
+        .catch(err => console.error(err));
+    }, []);
 
 useEffect(() => {
     const token = localStorage.getItem('token')
@@ -55,7 +69,7 @@ const navigate = useNavigate();
 >
                 <Box display="flex" flexDirection="column" alignItems="center" mb={2}>
                     <Avatar src={profile} sx={{ width: 80, height: 80, mb: 1 }} />
-                    <Typography variant="h4">Ronn Naomi</Typography>
+                    <Typography variant="h4">{fullName}</Typography>
                     <Typography variant="h6"component={Link} to='/lecturer'style={{color:'rgb(1,97,46)',cursor:'pointer'}}>lecturer</Typography>
                 </Box>
 
@@ -66,19 +80,19 @@ const navigate = useNavigate();
                         </ListItemIcon>
                         <ListItemText primary="Dashboard" style={{color:'black'}}/>
                     </ListItemButton>
-                    <ListItemButton component={Link} to="/login"style={{display:'flex',gap:'1rem',marginBottom:'0.8rem'}}>
+                    <ListItemButton component={Link} to="/view/profile/staff"style={{display:'flex',gap:'1rem',marginBottom:'0.8rem'}}>
                         <ListItemIcon>
                             <span className="material-icons"style={{color:'rgb(1,97,46)'}}>person</span>
                         </ListItemIcon>
                         <ListItemText primary="Profile" style={{color:'black'}}/>
                     </ListItemButton>
-                    <ListItemButton component={Link} to="/settings"style={{display:'flex',gap:'1rem',marginBottom:'0.8rem'}}>
+                    <ListItemButton component={Link} to="/lecsettings"style={{display:'flex',gap:'1rem',marginBottom:'0.8rem'}}>
                         <ListItemIcon>
                             <span className="material-icons"style={{color:'rgb(1,97,46)'}}>settings</span>
                         </ListItemIcon>
                         <ListItemText primary="Settings"style={{color:'black'}} />
                     </ListItemButton>
-                    <ListItemButton component={Link} to="/lecturer"style={{display:'flex',gap:'1rem',marginBottom:'0.8rem'}}>
+                    <ListItemButton component={Link} to="/allrooms"style={{display:'flex',gap:'1rem',marginBottom:'0.8rem'}}>
                         <ListItemIcon>
                             <span className="material-icons"style={{color:'rgb(1,97,46)'}}>more_horiz</span>
                         </ListItemIcon>

@@ -8,7 +8,7 @@ import {Drawer,List,ListItem,ListItemButton,ListItemIcon,ListItemText,Avatar,Typ
 
 export default function LecSettings() {
 
-    const[fullname, setFullName]= useState('');
+    const[fullName, setFullName]= useState('');
     const[email, setEmail]= useState('');
     const[role, setRole]= useState('');
     const[username, setUsername]= useState('');
@@ -17,6 +17,18 @@ export default function LecSettings() {
     const isValidEmail = (email) => {
        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     };
+    useEffect(() => {
+            const token = localStorage.getItem('token');
+            fetch('https://eclectics-project-production.up.railway.app/api/users/me', {
+                headers: { Authorization: `Bearer ${token}` }
+            })
+            .then(res => res.json())
+            .then(data => {
+                const user = data.Data; 
+                setFullName(user.fullName || '')
+            })
+            .catch(err => console.error(err));
+        }, []);
 
     useEffect(() => {
         const token = localStorage.getItem('token');
@@ -50,7 +62,7 @@ export default function LecSettings() {
         }
 
     const updatedData = {
-        fullName: fullname,
+        fullName: fullName,
         email: email,
         username: username,
         role: role
@@ -90,7 +102,7 @@ export default function LecSettings() {
             sx: { width: 250, backgroundColor: '#f5f5f5', paddingTop: 2 }}}>
             <Box display="flex" flexDirection="column" alignItems="center" mb={2}>
                 <Avatar src={profile} sx={{ width: 80, height: 80, mb: 1 }} />
-                <Typography variant="h4">Ronn Naomi</Typography>
+                <Typography variant="h4">{fullName}</Typography>
                 <Typography variant="h6"component={Link} to='/lecturer'style={{color:'rgb(1,97,46)',cursor:'pointer'}}>lecturer</Typography>
             </Box>
             <List>
@@ -100,7 +112,7 @@ export default function LecSettings() {
                     </ListItemIcon>
                     <ListItemText primary="Dashboard" style={{color:'black'}}/>
                 </ListItemButton>
-                <ListItemButton component={Link} to="/login"style={{display:'flex',gap:'1rem',marginBottom:'0.8rem'}}>
+                <ListItemButton component={Link} to="/view/profile/staff"style={{display:'flex',gap:'1rem',marginBottom:'0.8rem'}}>
                     <ListItemIcon>
                         <span className="material-icons"style={{color:'rgb(1,97,46)'}}>person</span>
                      </ListItemIcon>
@@ -139,7 +151,7 @@ export default function LecSettings() {
                             <h4>Name</h4>
                         </div>
                         <input type='name'
-                               value={fullname}
+                               value={fullName}
                                onChange={(e) =>setFullName(e.target.value)}
                                placeholder='John Doe'
                                style={{height: '2.4rem'}}></input>

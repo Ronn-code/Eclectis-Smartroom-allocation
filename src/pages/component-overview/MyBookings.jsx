@@ -11,6 +11,20 @@ import '@schedule-x/theme-default/dist/index.css';
 
 export default function CalendarWithBookings() {
 
+  const [fullName, setFullName] = useState('');
+  useEffect(() => {
+          const token = localStorage.getItem('token');
+          fetch('https://eclectics-project-production.up.railway.app/api/users/me', {
+              headers: { Authorization: `Bearer ${token}` }
+          })
+          .then(res => res.json())
+          .then(data => {
+              const user = data.Data; 
+              setFullName(user.fullName || '')
+          })
+          .catch(err => console.error(err));
+      }, []);
+
   const [bookings, setBookings] = useState([]);
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -67,7 +81,7 @@ export default function CalendarWithBookings() {
               PaperProps={{sx: { width: 250, backgroundColor: '#f5f5f5', paddingTop: 2 }}}>
         <Box display="flex" flexDirection="column" alignItems="center" mb={2}>
           <Avatar src={profile} sx={{ width: 80, height: 80, mb: 1 }} />
-          <Typography variant="h4">Ronn Naomi</Typography>
+          <Typography variant="h4">{fullName}</Typography>
           <Typography variant="h6"component={Link} to='/lecturer'style={{color:'rgb(1,97,46)',cursor:'pointer'}}>lecturer</Typography>
         </Box>
         <List>
@@ -77,19 +91,19 @@ export default function CalendarWithBookings() {
             </ListItemIcon>
             <ListItemText primary="Dashboard" style={{color:'black'}}/>
           </ListItemButton>
-          <ListItemButton component={Link} to="/login"style={{display:'flex',gap:'1rem',marginBottom:'0.8rem'}}>
+          <ListItemButton component={Link} to="/view/profile/staff"style={{display:'flex',gap:'1rem',marginBottom:'0.8rem'}}>
             <ListItemIcon>
               <span className="material-icons"style={{color:'rgb(1,97,46)'}}>person</span>
             </ListItemIcon>
             <ListItemText primary="Profile" style={{color:'black'}}/>
           </ListItemButton>
-          <ListItemButton component={Link} to="/settings"style={{display:'flex',gap:'1rem',marginBottom:'0.8rem'}}>
+          <ListItemButton component={Link} to="/lecsettings"style={{display:'flex',gap:'1rem',marginBottom:'0.8rem'}}>
             <ListItemIcon>
               <span className="material-icons"style={{color:'rgb(1,97,46)'}}>settings</span>
             </ListItemIcon>
             <ListItemText primary="Settings"style={{color:'black'}} />
           </ListItemButton>
-          <ListItemButton component={Link} to="/lecturer"style={{display:'flex',gap:'1rem',marginBottom:'0.8rem'}}>
+          <ListItemButton component={Link} to="/allrooms"style={{display:'flex',gap:'1rem',marginBottom:'0.8rem'}}>
             <ListItemIcon>
               <span className="material-icons"style={{color:'rgb(1,97,46)'}}>more_horiz</span>
             </ListItemIcon>
@@ -111,6 +125,14 @@ export default function CalendarWithBookings() {
         <div >
           <ScheduleXCalendar calendarApp={calendar} style={{height: '100%', width: '100%'}}/>
         </div>
+        <ListItemButton component={Link} to="/mybookings"style={{height:'2.4rem',border:'2px solid rgb(1,97,46)',
+                            width:'20%',marginLeft:'1.2rem',marginTop:'2rem',borderRadius:'5px',color:'black',textAlign:'center'}}>
+            <ListItemText primary="Edit Booking" />
+          </ListItemButton>
+          <ListItemButton component={Link} to="/mybookings"style={{height:'2.4rem',border:'2px solid rgba(143, 8, 8, 1)',
+                            width:'20%',marginLeft:'1.2rem',marginTop:'2rem',marginBottom:'2rem',borderRadius:'5px',color:'black',textAlign:'center'}}>
+            <ListItemText primary="Cancel Booking" />
+          </ListItemButton>
       </main>
     </div>
   );

@@ -80,7 +80,7 @@ const navigate = useNavigate();
                         </ListItemIcon>
                         <ListItemText primary="Dashboard" style={{color:'black'}}/>
                     </ListItemButton>
-                    <ListItemButton component={Link} to="/login"style={{display:'flex',gap:'1rem',marginBottom:'0.8rem'}}>
+                    <ListItemButton component={Link} to="/view/profile/staff"style={{display:'flex',gap:'1rem',marginBottom:'0.8rem'}}>
                         <ListItemIcon>
                             <span className="material-icons"style={{color:'rgb(1,97,46)'}}>person</span>
                         </ListItemIcon>
