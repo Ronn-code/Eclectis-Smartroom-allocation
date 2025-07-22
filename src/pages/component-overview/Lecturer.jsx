@@ -54,7 +54,10 @@ useEffect(() => {
     });
 }, []);
 
-const [searchTerm, setSearchTerm] = useState('');
+
+const [filterType, setFilterType] = useState('');
+const [filterValue, setFilterValue] = useState('');
+
 const navigate = useNavigate();
 
 
@@ -117,22 +120,63 @@ const navigate = useNavigate();
                 <h2 style={{marginTop:'2rem',textAlign:'center',fontSize:'1.4rem',fontWeight:'450'}}> Smart Room Allocation</h2>
                 <div className="main-top">
                     <input
-                        type='text'
-                        className='search'
-                        placeholder='Search rooms'
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        onKeyDown={(e) => {
-                            if (e.key === 'Enter') {
-                                const term = searchTerm.toLowerCase();
-                                if (term.includes('2 screens') || term.includes('microphone')) {
-                                    navigate('/resource1');}
-                                else {
-                                    alert('No match found');
+                        type={filterType === 'capacity' ? 'number' : filterType === 'time' ? 'datetime-local' : 'text'}
+                        placeholder={filterType === 'capacity' ? 'Enter Capacity' : 'Enter Start Time'}
+                        value={filterValue}
+                        onChange={(e) => setFilterValue(e.target.value)}
+                        disabled={!filterType}
+                        style={{ padding: '0.4rem' }}/>
+                    <select
+                        value={filterType}
+                        onChange={(e) => {
+                                    setFilterType(e.target.value);
+                                    setFilterValue(''); /* reset value on switch*/}}
+                        style={{ padding: '0.4rem' }}>
+
+                        <option value='' disabled >Filter By</option>   
+                        <option value="capacity">Capacity</option>
+                        <option value="time">Time</option>
+                    </select>  
+                    <button
+                        onClick={async () => {
+                            const token = localStorage.getItem('token');
+                            if (!filterValue || !filterType) {
+                                alert('Please select a filter type and provide a value');
+                                return;
+                            }
+                            if (filterType === 'capacity') {
+                                try {
+                                    const res = await fetch(`https://eclectics-project-production.up.railway.app/api/rooms/capacity/${filterValue}`, {
+                                    headers: { Authorization: `Bearer ${token}` }
+                                    });
+                                    const data = await res.json();
+                                    setRooms(data.Data || []);
+                                } catch (error) {
+                                    console.error(error);
+                                    setRooms([]);
+                                }
+                            } else if (filterType === 'time') {
+        
+                                try {
+                                    const res = await fetch(`https://eclectics-project-production.up.railway.app/api/rooms/available?startTime=${filterValue}&endTime=${filterValue}`, {
+                                    headers: { Authorization: `Bearer ${token}` }
+                                    });
+                                    
+                                    const data = await res.json();
+                                    setRooms(data.Data || []);
+                                } catch (error) {
+                                    console.error(error);
+                                    setRooms([]);
                                 }
                             }
-                        }} />
-
+                        }}
+                        style={{
+                            padding: '0.5rem 1rem',
+                            backgroundColor: 'rgb(1,97,46)',
+                            color: 'white',
+                            border: 'none',
+                            width:'6rem',
+                            borderRadius: '4px'}}>Filter</button>
                 </div>
                     <h3>Available Rooms Now</h3>
                     <div className='rooms-row'>

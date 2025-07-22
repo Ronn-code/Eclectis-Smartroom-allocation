@@ -21,7 +21,7 @@ const pages = {
       type: 'item',
       url: '/view/profile',
       icon: icons.BankOutlined,
-      target: true
+    
     },
     
   ]
