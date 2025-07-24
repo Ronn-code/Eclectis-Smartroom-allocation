@@ -52,7 +52,7 @@ export default function LecSettings() {
             alert(`Enter a valid email`);
             return;
         }
-        if (!fullname) {
+        if (!fullName) {
            alert(`Enter your Name`);
            return;
         }
@@ -133,6 +133,10 @@ export default function LecSettings() {
                 <ListItemButton component={Link} to="/mybookings"style={{height:'2.4rem',border:'1px solid rgb(1,97,46)',
                                 width:'80%',marginLeft:'1.2rem',marginTop:'2rem',borderRadius:'5px',color:'black',textAlign:'center'}}>
                     <ListItemText primary="My Bookings" />
+                </ListItemButton>
+                <ListItemButton component={Link} to="/cancel/booking"style={{height:'2.4rem',
+                                 width:'80%',background:'rgba(160, 18, 18, 1)',marginLeft:'1.2rem',marginTop:'2rem',borderRadius:'5px',color:'#f1ececff',textAlign:'center'}}>
+                    <ListItemText primary="Cancel Booking" />
                 </ListItemButton>
                 <ListItemButton component={Link} to="/login"style={{display:'flex',gap:'1rem',marginTop:'4rem'}}>
                     <ListItemIcon>

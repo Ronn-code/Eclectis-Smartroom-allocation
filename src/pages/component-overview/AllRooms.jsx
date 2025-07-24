@@ -104,7 +104,10 @@ const navigate = useNavigate();
                         width:'80%',marginLeft:'1.2rem',marginTop:'2rem',borderRadius:'5px',color:'black',textAlign:'center'}}>
                         <ListItemText primary="My Bookings" />
                     </ListItemButton>
-
+                    <ListItemButton component={Link} to="/cancel/booking"style={{height:'2.4rem',
+                                    width:'80%',background:'rgba(160, 18, 18, 1)',marginLeft:'1.2rem',marginTop:'2rem',borderRadius:'5px',color:'#f1ececff',textAlign:'center'}}>
+                        <ListItemText primary="Cancel Booking" />
+                    </ListItemButton>
                     <ListItemButton component={Link} to="/login"style={{display:'flex',gap:'1rem',marginTop:'4rem'}}>
                         <ListItemIcon>
                             <span className="material-icons"style={{color:'rgb(1,97,46)'}}>logout</span>

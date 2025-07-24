@@ -113,6 +113,10 @@ export default function CalendarWithBookings() {
                             width:'80%',marginLeft:'1.2rem',marginTop:'2rem',borderRadius:'5px',color:'black',textAlign:'center'}}>
             <ListItemText primary="My Bookings" />
           </ListItemButton>
+          <ListItemButton component={Link} to="/cancel/booking"style={{height:'2.4rem',
+                          width:'80%',background:'rgba(160, 18, 18, 1)',marginLeft:'1.2rem',marginTop:'2rem',borderRadius:'5px',color:'#f1ececff',textAlign:'center'}}>
+            <ListItemText primary="Cancel Booking" />
+          </ListItemButton>
           <ListItemButton component={Link} to="/login"style={{display:'flex',gap:'1rem',marginTop:'4rem'}}>
             <ListItemIcon>
               <span className="material-icons"style={{color:'rgb(1,97,46)'}}>logout</span>
@@ -125,14 +129,6 @@ export default function CalendarWithBookings() {
         <div >
           <ScheduleXCalendar calendarApp={calendar} style={{height: '100%', width: '100%'}}/>
         </div>
-        <ListItemButton component={Link} to="/mybookings"style={{height:'2.4rem',border:'2px solid rgb(1,97,46)',
-                            width:'20%',marginLeft:'1.2rem',marginTop:'2rem',borderRadius:'5px',color:'black',textAlign:'center'}}>
-            <ListItemText primary="Edit Booking" />
-          </ListItemButton>
-          <ListItemButton component={Link} to="/mybookings"style={{height:'2.4rem',border:'2px solid rgba(143, 8, 8, 1)',
-                            width:'20%',marginLeft:'1.2rem',marginTop:'2rem',marginBottom:'2rem',borderRadius:'5px',color:'black',textAlign:'center'}}>
-            <ListItemText primary="Cancel Booking" />
-          </ListItemButton>
       </main>
     </div>
   );

@@ -41,7 +41,9 @@ export default defineConfig(({ mode }) => {
     },
     base: '/',
     plugins: [react(), jsconfigPaths()],
-
+    optimizeDeps: {
+    include: ['react-dom/client']
+  },
     build: {
       outDir: 'dist',
       minify: 'terser',

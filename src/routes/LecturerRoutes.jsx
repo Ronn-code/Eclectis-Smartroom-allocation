@@ -15,7 +15,7 @@ const AllRooms = Loadable(lazy(() => import('pages/component-overview/AllRooms')
 const LecSettings = Loadable(lazy(() => import('pages/component-overview/LecSettings')));
 const ViewProfileStaff = Loadable(lazy(() => import('pages/component-overview/ViewProfileStaff')));
 const ChangePwdL = Loadable(lazy(() => import('pages/component-overview/ChangePwdL')));
-
+const Cancel = Loadable(lazy(() => import('pages/component-overview/Cancel')));
 
 // ==============================|| AUTH ROUTING ||============================== //
 
@@ -61,6 +61,10 @@ const LecturerRoutes = {
         {
           path:'change/pwd',
           element: <ChangePwdL/>
+        },
+        {
+          path: 'cancel/booking',
+          element: <Cancel/>
         }
       ]
     }
