@@ -173,7 +173,7 @@ const navigate = useNavigate();
                             backgroundColor: 'rgb(1,97,46)',
                             color: 'white',
                             border: 'none',
-                            width:'6rem',
+                            width:'8rem',
                             borderRadius: '4px'}}>Filter</button>
                 </div>
                     <h3>All Rooms</h3>

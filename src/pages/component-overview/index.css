@@ -24,17 +24,17 @@ h3{
   align-items: center;
   margin-left: 2rem;
 }
-.main-top .search{
+.main-top input{
   height: 2rem;
- 
-  border-radius: 4px;
-  border: 1px solid gray;
+  width: 50%;
 }
-
+.main-top select{
+  width: 20%;
+}
 .rooms-row {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 14px;
+  gap: 10px;
   margin-bottom: 2rem;
 }
 

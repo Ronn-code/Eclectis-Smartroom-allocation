@@ -23,16 +23,39 @@ export default defineConfig(({ mode }) => {
       global: 'window'
     },
     resolve: {
-  alias: {
-    'react': 'preact/compat',
-    'react-dom': 'preact/compat'
-  }
-},
-    base: API_URL,
+      alias: [
+        // { find: '', replacement: path.resolve(__dirname, 'src') },
+        // {
+        //   find: /^~(.+)/,
+        //   replacement: path.join(process.cwd(), 'node_modules/$1')
+        // },
+        // {
+        //   find: /^src(.+)/,
+        //   replacement: path.join(process.cwd(), 'src/$1')
+        // }
+        // {
+        //   find: 'assets',
+        //   replacement: path.join(process.cwd(), 'src/assets')
+        // },
+      ]
+    },
+    base: '/',
     plugins: [react(), jsconfigPaths()],
 
-    esbuild: {
-      minify: false
+    build: {
+      outDir: 'dist',
+      minify: 'terser',
+      sourcemap: false,
+      rollupOptions:{
+        output:{
+          assetFileNames: 'assets/[name]-[hash][extname]',
+          entryFileNames: 'assets/[name]-[hash].js',
+          manualChunks: {
+            react: ['react', 'react-dom'],
+            vendor: ['axios', 'react-router-dom'],
+          }
+        }
+      }
     }
   };
 });

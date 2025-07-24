@@ -1,11 +1,11 @@
 {
-  "name": "mantis-material-free-react",
+  "name": "smartroom-allocation-system",
   "version": "1.5.0",
-  "homepage": "https://mantisdashboard.io/free",
+  "homepage": "https://github.com/Ronn-code/eclectics-project",
   "author": {
-    "name": "CodedThemes",
-    "email": "codedthemes@gmail.com",
-    "url": "https://codedthemes.com/"
+    "name": "Nomicodes Tech",
+    "email": "ronnthecoder@gmail.com",
+    "url": "https://nomicodes.com/"
   },
   "scripts": {
     "start": "vite",
@@ -38,6 +38,7 @@
     "@schedule-x/react": "^2.36.0",
     "@schedule-x/theme-default": "^2.36.0",
     "@vitejs/plugin-react": "4.4.1",
+    "axios": "^1.11.0",
     "formik": "2.4.6",
     "framer-motion": "12.8.2",
     "lodash-es": "4.17.21",
@@ -86,7 +87,8 @@
     "immutable": "4.3.7",
     "knip": "5.45.0",
     "prettier": "3.5.3",
-    "prettier-eslint-cli": "8.0.1"
+    "prettier-eslint-cli": "8.0.1",
+    "terser": "^5.43.1"
   },
   "packageManager": "yarn@4.9.1"
 }

@@ -68,6 +68,9 @@ const handleSave = (e) =>{
     if(!res.ok){
       const errorData = await res.json().catch(()=>({}));
       console.error('failed to add booking:', errorData);
+
+      alert(errorData.message || 'The Room is occupied Now. Please try again.');
+      navigate('/lecturer');
       throw new Error(`Failed to add booking: ${res.status}`);
     }
     return res.json();
@@ -75,7 +78,6 @@ const handleSave = (e) =>{
     .then((data)=>{
         alert('Booking Done');
         navigate('/lecturer');
-        window.location.reload()
     })
     .catch((err)=>console.log(err.message))
 }
