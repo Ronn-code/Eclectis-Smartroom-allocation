@@ -92,12 +92,19 @@ const handleBack = ()=>{
             </div>
             <div className="roomtype"style={{display:'flex', flexDirection:'column'}}>
                 <label htmlFor='roomtype'>Room Type</label>
-                <input type='text'
+                <select
                    id='roomtype'
                    value={roomType}
                    onChange={(e)=>setRoomType(e.target.value)}
-                   placeholder='computer lab'
-                   style={{height:'2rem',width:'12rem'}}></input>
+                   style={{height:'2rem',width:'12rem'}}>
+                    <option value='' disabled>Select type</option>
+                    <option value='LECTURE_HALL'>LECTURE_HALL</option>
+                    <option value='CLASSROOM'>CLASSROOM</option>
+                    <option value='LABORATORY'>LABORATORY</option>
+                    <option value='CONFERENCE_ROOM'>CONFERENCE_ROOM</option>
+                    <option value='COMPUTER_LAB'>COMPUTER_LAB</option>
+                    <option value='AUDITORIUM'>AUDITORIUM</option>
+                </select>
             </div>
             <div className="capacity"style={{display:'flex', flexDirection:'column'}}>
                 <label htmlFor='capacity'>Capacity</label>

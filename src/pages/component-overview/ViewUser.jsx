@@ -16,11 +16,16 @@ function Viewuser() {
         })
         .then((res)=>{
             if (!res.ok){
-                throw new Error(me || "User not found");
+                throw new Error("Failed to fetch");
             }
             return res.json();
         })
-        .then(data=>setUser(data))
+        .then((data)=> {
+            if (data.Status !==1){
+                throw new Error(data.Message || "User not found");
+            }
+            setUser(data.Data);
+        })
         .catch((err)=>console.log(err.message));
     }, [userid]);
   return (
@@ -34,6 +39,7 @@ function Viewuser() {
                     <th>Role</th>
                     <th>Department</th>
                     <th>Streak</th>
+                    <th>TotalBookings</th>
                     <th>CreatedOn</th>
                 </tr>
             </thead>
@@ -45,6 +51,7 @@ function Viewuser() {
                     <td>{user.role}</td>
                     <td>{user.department}</td>
                     <td>{user.usageStreak}</td>
+                    <td>{user.totalBookings}</td>
                     <td>{user.createdAt}</td>
                     </tr>}
             </tbody>

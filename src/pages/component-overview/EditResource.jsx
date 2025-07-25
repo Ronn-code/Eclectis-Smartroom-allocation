@@ -79,12 +79,21 @@ const handleBack = ()=>{
             </div>
             <div className="type" style={{display:'flex', flexDirection:'column'}}>
                 <label htmlFor='type'>Type</label>
-                <input type='text'
+                <select
                    id='type'
                    value={type}
                    onChange={(e)=>setType(e.target.value)}
-                   placeholder='microphone'
-                   style={{height:'2rem',width:'12rem'}}></input>
+                   style={{height:'2rem',width:'12rem'}}>
+                    <option value='' disabled>Select type</option>
+                    <option value='PROJECTOR'>PROJECTOR</option>
+                    <option value='PA_SYSTEM'>PA_SYSTEM</option>
+                    <option value='WHITEBOARD'>WHITEBOARD</option>
+                    <option value='COMPUTER'>COMPUTER</option>
+                    <option value='AIR_CONDITIONING'>AIR_CONDITIONING</option>
+                    <option value='MICROPHONE'>MICROPHONE</option>
+                    <option value='SCREEN'>SCREEN</option>
+                    <option value='SPEAKERS'>SPEAKERS</option>
+                  </select>
             </div>
             <div className="descript"style={{display:'flex', flexDirection:'column'}}>
                 <label htmlFor='descript'>Description</label>

@@ -92,12 +92,15 @@ const handleSubmit = (e) =>{
             </div>
             <div className="role"style={{display:'flex', flexDirection:'column'}}>
                 <label htmlFor='role'>Role</label>
-                <input type='text'
+                <select
                    id='role'
                    value={role}
                    onChange={(e)=>setRole(e.target.value)}
-                   placeholder='Lecturer'
-                   style={{height:'2rem',width:'12rem'}}></input>
+                   style={{height:'2rem',width:'12rem'}}>
+                    <option value='' disabled>Select Role</option>
+                    <option value='LECTURER'>LECTURER</option>
+                    <option value='ADMIN'>ADMIN</option>
+                   </select>
             </div>
             <div className="role"style={{display:'flex', flexDirection:'column'}}>
                 <label htmlFor='pwd'>Password</label>

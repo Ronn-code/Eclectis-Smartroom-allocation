@@ -45,7 +45,7 @@ export default function Cancel() {
             console.log('Deleting booking with ID:', id); // Log the ID being sent
 console.log('Using token:', token); // Verify token exists
             fetch(`https://eclectics-project-production.up.railway.app/api/bookings/${id}/cancel`, {
-                method: 'DELETE',
+                method: 'PUT',
                 headers:{
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json'
@@ -134,7 +134,7 @@ console.log('Using token:', token); // Verify token exists
                                     <td style={{fontSize:'0.7rem'}}>{item.status}</td>
                                     <td style={{paddingLeft:'1rem'}}>
                                         <button onClick={()=>removeDetails(item.id)}
-                                                style={{height:'1.6rem',width:'4.5rem',background:'rgb(160,18,18,1)', borderRadius:'3px',border:'none',color:'#e6e2e2ff'}}>Delete</button>
+                                                style={{height:'1.6rem',width:'4.5rem',background:'rgb(160,18,18,1)', borderRadius:'3px',border:'none',color:'#e6e2e2ff'}}>Cancel</button>
                                     </td>
                                </tr> 
                             ))
