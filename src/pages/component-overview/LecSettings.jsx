@@ -8,11 +8,26 @@ import {Drawer,List,ListItem,ListItemButton,ListItemIcon,ListItemText,Avatar,Typ
 
 export default function LecSettings() {
 
+const [isMobile, setIsMobile] = useState(window.innerWidth <= 600);
+  
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 600);
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+
+
     const[fullName, setFullName]= useState('');
     const[email, setEmail]= useState('');
     const[role, setRole]= useState('');
     const[username, setUsername]= useState('');
     const Navigate = useNavigate('');
+
+    const [drawerOpen, setDrawerOpen] = useState(false);
 
     const isValidEmail = (email) => {
        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
@@ -93,13 +108,37 @@ export default function LecSettings() {
     });
 };
   return (
-    <div className="staff-dashboard">
-                     {/* Sidebar */}
+    <div className="staff-dashboard" style={{ display: isMobile ? 'block' : 'flex' }}>
+       {isMobile && (
+            <Button 
+                onClick={() => setDrawerOpen(!drawerOpen)}
+                style={{ 
+                    position: 'fixed', 
+                    top: 10, 
+                    left: 10, 
+                    zIndex: 1200,
+                    minWidth: 'auto', 
+                    padding: '4px' }}>
+                <span className="material-icons" style={{ color: 'rgb(1,97,46)' }}>menu</span>
+            </Button>
+        )}
+       {/* Sidebar */}
         <Drawer
-            variant="permanent"
+            variant={isMobile ? "temporary" : "permanent"}
             anchor="left"
+            open={isMobile ? drawerOpen : true}
+            onClose={() => setDrawerOpen(false)}
             PaperProps={{
-            sx: { width: 250, backgroundColor: '#f5f5f5', paddingTop: 2 }}}>
+            sx: { width: isMobile ? '100%' : 250, 
+                  backgroundColor: '#f5f5f5',
+                  paddingTop: 2 }}}>
+            {isMobile && (
+                <ListItemButton onClick={() => setDrawerOpen(false)}>
+                    <ListItemIcon>
+                        <span className="material-icons" style={{color:'rgb(1,97,46)'}}>close</span>
+                    </ListItemIcon>
+                </ListItemButton>
+            )}
             <Box display="flex" flexDirection="column" alignItems="center" mb={2}>
                 <Avatar src={profile} sx={{ width: 80, height: 80, mb: 1 }} />
                 <Typography variant="h4">{fullName}</Typography>
@@ -147,9 +186,20 @@ export default function LecSettings() {
             </List>
         </Drawer>
     
-        <main style={{marginTop:'6rem',marginLeft:'8rem'}}>
-            <MainCard title="Edit Profile"style={{width:'88%'}}>
-                <div className="settings" style={{ display: 'grid',gridTemplateColumns: 'repeat(3, 1fr)' }}>
+        <main style={{marginTop: isMobile ? '60px' : '60px',
+                      marginLeft: isMobile ? '10px' : '450px',
+                      ...(isMobile && {
+                            width: '100%',
+                            padding: '1rem',
+                            boxSizing: 'border-box',
+                            overflowX: 'hidden'})}}>
+            <MainCard title="Edit Profile"style={{width:isMobile ? '88%': '100%',
+                                        ...(isMobile && {
+                                            margin: '0 auto',
+                                            padding: '1rem',
+                                            boxShadow: '0 2px 4px rgba(0,0,0,0.1)'})}}>
+                <div className="settings" style={{ display: 'grid',gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
+                                                   gap: isMobile ? '1rem' : '2rem'}}>
                     <div className="input">
                         <div className="top-name">
                             <h4>Name</h4>
@@ -195,9 +245,11 @@ export default function LecSettings() {
                         style={{background: 'rgb(7, 90, 46)',
                         color:'#ececec',
                         height:'2.4rem',
-                        border: 'none', width:'10rem',
+                        border: 'none', 
+                        width: isMobile ? '90%' :'10rem',
                         borderRadius: '4px',
-                        marginTop: '2rem'}}>Save</button>
+                        marginTop: '2rem',
+                        fontSize: isMobile ? '1rem' : 'inherit'}}>Save</button>
             </MainCard>
         </main>
     </div>

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { Link,useNavigate } from 'react-router-dom';
 import profile from './images/profile3.jpg';
 import {Drawer,List,ListItem,ListItemButton,ListItemIcon,ListItemText,Avatar,Typography,Box,Button,TextField,} from '@mui/material';
-
+import { maxWidth, padding } from '@mui/system';
 
 export default function Cancel() {
     const [fullName, setFullName] = useState('');
@@ -13,6 +13,7 @@ export default function Cancel() {
     const[startTime, setStartTime]= useState('');
     const[endTime, setEndTime]= useState('');
     const[status, setStatus]= useState('');
+    const [drawerOpen, setDrawerOpen] = useState(false);
     const navigate = useNavigate();
 
     const isValidEmail = (email) => {
@@ -40,7 +41,7 @@ export default function Cancel() {
           .catch(console.error);
       }, []);
     const removeDetails = (id) =>{
-        if(window.confirm('Are You Sure You want to Delete?')){
+        if(window.confirm('Are You Sure You want to Cancel?')){
             const token = localStorage.getItem('token');
             console.log('Deleting booking with ID:', id); // Log the ID being sent
 console.log('Using token:', token); // Verify token exists
@@ -55,20 +56,53 @@ console.log('Using token:', token); // Verify token exists
                 if(!res.ok){
                     throw new Error('Delete failed');
                 }
-                alert("Booking Deleted Successfully");
+                alert("Booking Cancelled Successfully");
                 window.location.reload();
             })
             .catch((err)=>console.log(err.message))
         }
     }
+
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 600);
+          
+          useEffect(() => {
+            const handleResize = () => {
+              setIsMobile(window.innerWidth <= 600);
+            };
+            
+            window.addEventListener('resize', handleResize);
+            return () => window.removeEventListener('resize', handleResize);
+          }, []);
   return (
-    <div className="cancel-dashboard" style={{display:'grid',gridTemplateColumns:'30% auto'}}>
-                     {/* Sidebar */}
+    <div className="cancel-dashboard" style={{ display: isMobile ? 'block' : 'flex' }}>
+        {isMobile && (
+            <Button 
+                onClick={() => setDrawerOpen(!drawerOpen)}
+                style={{ 
+                    position: 'fixed', 
+                    top: 10, 
+                    left: 10, 
+                    zIndex: 1200,
+                    minWidth: 'auto', 
+                    padding: '4px' }}>
+                <span className="material-icons" style={{ color: 'rgb(1,97,46)' }}>menu</span>
+            </Button>
+        )} 
+        {/* Sidebar */}
         <Drawer
-            variant="permanent"
+            variant={isMobile ? "temporary" : "permanent"}
             anchor="left"
+            open={isMobile ? drawerOpen : true}
+            onClose={() => setDrawerOpen(false)}
             PaperProps={{
-            sx: { width: 250, backgroundColor: '#f5f5f5', paddingTop: 2 }}}>
+            sx: { width: isMobile ? '100%' : 250, backgroundColor: '#f5f5f5', paddingTop: 2 }}}>
+            {isMobile && (
+                <ListItemButton onClick={() => setDrawerOpen(false)}>
+                    <ListItemIcon>
+                        <span className="material-icons" style={{color:'rgb(1,97,46)'}}>close</span>
+                    </ListItemIcon>
+                </ListItemButton>
+            )}
             <Box display="flex" flexDirection="column" alignItems="center" mb={2}>
                 <Avatar src={profile} sx={{ width: 80, height: 80, mb: 1 }} />
                 <Typography variant="h4">{fullName}</Typography>
@@ -112,35 +146,67 @@ console.log('Using token:', token); // Verify token exists
             </List>
         </Drawer>
     
-        <main style={{marginTop:'3rem',marginLeft:'4rem'}}>
-            <MainCard title="My Bookings Done"style={{width:'70%',marginBottom:'2rem'}}>
-                <table style={{marginLeft:'1rem'}}>
-                    <thead>
-                        <tr >
-                            <th style={{textAlign:'start',paddingRight:'1rem'}}>Room Number</th>
-                            <th style={{textAlign:'start'}}>startTime</th>
-                            <th style={{textAlign:'start'}}>endTime</th>
-                            <th style={{textAlign:'start'}}>Status</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {Array.isArray(bookings) ? (
-                            bookings.map((item)=>(
-                                <tr key={item.id}>
-                                    <td style={{fontSize:'0.7rem'}}>{item.roomNumber}</td>
-                                    <td style={{fontSize:'0.7rem', padding:'0.7rem 0.7rem 0.7rem 0'}}>{item.startTime}</td>
-                                    <td style={{fontSize:'0.7rem'}}>{item.endTime}</td>
-                                    <td style={{fontSize:'0.7rem'}}>{item.status}</td>
-                                    <td style={{paddingLeft:'1rem'}}>
-                                        <button onClick={()=>removeDetails(item.id)}
+        <main style={{boxSizing: 'border-box',overflowX: 'hidden',
+                    ...(isMobile ? {
+                        width: '100%',
+                        padding: '1rem',
+                        marginTop: '60px',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center'
+                    } :
+                    {
+                        width: 'calc(100%-250px',
+                        marginLeft: '340px', 
+                        marginTop: '20px',
+                        padding: '2rem',
+                        display: 'flex',
+                        justifyContent: 'center'
+                    })
+                }}>
+            <MainCard title="My Bookings Done"style={{
+                                                  width: isMobile ? '100%' : '800px',
+                                                  padding: isMobile ? '16px' : '24px',
+                                                  borderRadius: '12px',
+                                                  boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+                                                  overflowX: isMobile ? 'auto' : 'visible'}}>
+                <div style={{ 
+                            minWidth: isMobile ? '600px' : 'auto', // Force minimum width for mobile
+                            overflowX: isMobile ? 'auto' : 'visible'
+                        }}>                                    
+                    <table style={{ width: '100%',
+                                    borderCollapse: 'collapse',
+                                    fontSize: isMobile ? '14px' : '16px',
+                                    minWidth: isMobile ? '600px' : 'auto' }}>
+                        <thead>
+                            <tr  style={{ 
+                                       borderBottom: '1px solid #e0e0e0',
+                                       textAlign: 'left'}} >
+                                <th style={{ padding: '12px 16px', fontWeight: 600 }}>Room</th>
+                                <th style={{ padding: '12px 16px', fontWeight: 600 }}>Start Time</th>
+                                <th style={{ padding: '12px 16px', fontWeight: 600 }}>End Time</th>
+                                <th style={{ padding: '12px 16px', fontWeight: 600 }}>Status</th>
+                                <th style={{ padding: '12px 16px', fontWeight: 600 }}>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {Array.isArray(bookings) ? (
+                                bookings.map((item)=>(
+                                    <tr key={item.id}>
+                                        <td style={{padding: '12px 16px'}}>{item.roomNumber}</td>
+                                        <td style={{padding: '12px 16px'}}>{item.startTime}</td>
+                                        <td style={{padding: '12px 16px'}}>{item.endTime}</td>
+                                        <td style={{padding: '12px 16px'}}>{item.status}</td>
+                                        <td style={{padding: '12px 16px'}}>
+                                            <button onClick={()=>removeDetails(item.id)}
                                                 style={{height:'1.6rem',width:'4.5rem',background:'rgb(160,18,18,1)', borderRadius:'3px',border:'none',color:'#e6e2e2ff'}}>Cancel</button>
-                                    </td>
-                               </tr> 
-                            ))
-                        ) : null }
-                    </tbody>
-                </table>  
+                                        </td>
+                                    </tr> 
+                                ))
+                            ) : null }
+                        </tbody>
+                    </table> 
+                </div> 
             </MainCard>
         </main>
     </div>

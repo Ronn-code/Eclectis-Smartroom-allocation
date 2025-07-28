@@ -60,24 +60,77 @@ function Login() {
  
     const [rememberMe, setRememberMe] = useState(false);
   return (
-    <div className='login-page'>
-        <div className="top-login">
-           <img src={profile}></img>
-           <h2>Sign In</h2>
+    <div className='login-page' style={{
+            display: 'flex',
+            width:'90%',
+            marginTop:'6rem',
+            flexDirection: 'column',
+            alignItems: 'center',
+            minHeight: '70vh',
+            padding: '20px',
+            boxSizing: 'border-box'}}>
+      <div className="top-login" style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            marginBottom: '30px',
+            textAlign: 'center'}}>
+        <img src={profile} alt="Profile" 
+              style={{
+                      width: '80px',
+                      height: '80px',
+                      borderRadius: '50%',
+                      objectFit: 'cover',
+                      marginBottom: '15px'}} ></img>
+        <h2  style={{
+                    margin: 0,
+                    fontSize: '1.5rem',
+                    color: '#333'}}>Sign In</h2>
+      </div>
+        <div className="inputs"  style={{
+                width: '90%',
+                maxWidth: '400px',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '20px',
+                marginBottom: '16px',
+                marginLeft:'10px'}}>
+          <input type='email' placeholder='Enter your username'value={username} onChange={(e) => setUsername(e.target.value)} style={{
+                  width: '100%',
+                  padding: '24px 15px',
+                  borderRadius: '6px',
+                  border: '1px solid #ddd',
+                  fontSize: '16px',
+                  boxSizing: 'border-box'}}>
+          </input>
+          <input type='password' placeholder='Enter your password'value={password}onChange={(e) => setPassword(e.target.value)} style={{
+                  width: '100%',
+                  padding: '24px 15px',
+                  borderRadius: '6px',
+                  border: '1px solid #ddd',
+                  fontSize: '16px',
+                  boxSizing: 'border-box'}}>
+          </input>
         </div>
-        <div className="inputs">
-            
-                <input type='email' placeholder='Enter your username'value={username} onChange={(e) => setUsername(e.target.value)}></input>
-          
-            
-                <input type='password' placeholder='Enter your password'value={password}onChange={(e) => setPassword(e.target.value)}></input>
-          
-        </div>
-       
-        <button id='login-btn'onClick={handleLogin}>Login</button>
-        
-    </div>
-  )
-}
+        <button id='login-btn'onClick={handleLogin} style={{
+                    width: '90%',
+                    height:'2.6rem',
+                    maxWidth: '400px',
+                    padding: '1px ',
+                    borderRadius: '6px',
+                    border: 'none',
+                    backgroundColor: 'rgb(1,97,46)',
+                    color: 'white',
+                    fontSize: '16px',
+                    fontWeight: '600',
+                    cursor: 'pointer',
+                    marginLeft:'10px',
+                    transition: 'background-color 0.3s',
+                    '&:hover': {
+                        backgroundColor: 'rgb(0,80,38)'}}}>Login
+        </button>
+      </div>
+    )
+  }
 
 export default Login

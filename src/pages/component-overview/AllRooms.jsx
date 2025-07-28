@@ -9,9 +9,19 @@ import {Drawer,List,ListItem,ListItemButton,ListItemIcon,ListItemText,Avatar,Typ
 
 
 function AllRooms() {
-
+const [isMobile, setIsMobile] = useState(window.innerWidth <= 600);
 const [rooms, setRooms] = useState([]);
 const [fullName,setFullName] = useState('');
+
+useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 600);
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
 
 const displayDetails = (id) =>{
     navigate(`/addbooking/${id}`);
@@ -56,18 +66,42 @@ useEffect(() => {
 
 const [filterType, setFilterType] = useState('');
 const [filterValue, setFilterValue] = useState('');
+const [drawerOpen, setDrawerOpen] = useState(false);
 const navigate = useNavigate();
 
 
     return (
-        <div className="staff-dashboard">
-                 {/* Sidebar */}
+        <div className="staff-dashboard" style={{ display: isMobile ? 'block' : 'flex' }}>
+            {isMobile && (
+                <Button 
+                    onClick={() => setDrawerOpen(!drawerOpen)}
+                    style={{ 
+                        position: 'fixed', 
+                        top: 10, 
+                        left: 10, 
+                        zIndex: 1200,
+                        minWidth: 'auto', 
+                        padding: '8px' }}>
+                    <span className="material-icons" style={{ color: 'rgb(1,97,46)' }}>menu</span>
+                </Button>
+            )}   
+             {/* Sidebar */}
             <Drawer
-               variant="permanent"
+               variant={isMobile ? "temporary" : "permanent"}
                anchor="left"
+               open={isMobile ? drawerOpen : true}
+               onClose={() => setDrawerOpen(false)}
                PaperProps={{
-               sx: { width: 250, backgroundColor: '#f5f5f5', paddingTop: 2 }}}
->
+               sx: { width: isMobile ? '100%' : 250, 
+                     backgroundColor: '#f5f5f5', 
+                     paddingTop: 2 }}}>
+                {isMobile && (
+                    <ListItemButton onClick={() => setDrawerOpen(false)}>
+                        <ListItemIcon>
+                            <span className="material-icons" style={{color:'rgb(1,97,46)'}}>close</span>
+                        </ListItemIcon>
+                    </ListItemButton>
+                )}        
                 <Box display="flex" flexDirection="column" alignItems="center" mb={2}>
                     <Avatar src={profile} sx={{ width: 80, height: 80, mb: 1 }} />
                     <Typography variant="h4">{fullName}</Typography>
@@ -117,9 +151,16 @@ const navigate = useNavigate();
                 </List>
             </Drawer>
 
-            <main>
-                <h2 style={{marginTop:'2rem',textAlign:'center',fontSize:'1.4rem',fontWeight:'450'}}> Smart Room Allocation</h2>
-                <div className="main-top">
+            <main style={{ 
+                    width: isMobile ? '100%' : 'calc(100% - 250px)',
+                    padding: isMobile ? '1rem' : '2rem',
+                     marginLeft: isMobile ? 0 : '250px',
+                    marginTop: isMobile ? '60px' : '0'}}>
+                <h2 style={{marginTop: isMobile ? '1rem' : '2rem',
+                           fontSize: isMobile ? '1.2rem' : '1.4rem'}}> Smart Room Allocation</h2>
+                <div className="main-top" style={{
+                    flexDirection: isMobile ? 'column' : 'row',
+                    gap: isMobile ? '0.5rem' : '1rem'}}>
                     <input
                         type={filterType === 'capacity' ? 'number' : filterType === 'time' ? 'datetime-local' : 'text'}
                         placeholder={filterType === 'capacity' ? 'Enter Capacity' : 'Enter Start Time'}
@@ -179,22 +220,25 @@ const navigate = useNavigate();
                             width:'8rem',
                             borderRadius: '4px'}}>Filter</button>
                 </div>
-                    <h3>All Rooms</h3>
-                    <div className='rooms-row'>
-                        {rooms && rooms.map((item) =>(
-                            <div className="rooms">
-                                <img src={room2}></img>
-                                <div className="room-details" key={item.roomNumber}>
-                                    <h4><b>Room No:</b> {item.roomNumber.toUpperCase()}</h4>
-                                    <h4><b>Room Type:</b> {item.roomType.toLowerCase()}</h4>
-                                    <h4><b>Capacity:</b> {item.capacity}</h4>
-                                    <h4><b>Status:</b> {item.status}</h4>
-                                    
-                                    <button onClick={()=> displayDetails(item.id)} id='book-btn'>Add booking</button>
-                                </div> 
-                            </div>
-                        ))}
-                    </div>   
+                <h3>All Rooms</h3>
+                <div className='rooms-row' style={{
+                    flexDirection: isMobile ? 'column' : 'row',
+                    flexWrap: isMobile ? 'nowrap' : 'wrap' }}>
+                    {rooms && rooms.map((item) =>(
+                        <div className="rooms" style={{
+                             width: isMobile ? '100%' : '320px',
+                             margin: isMobile ? '0 0 1rem 0' : '0.5rem'}}>
+                            <img src={room2}></img>
+                            <div className="room-details" key={item.roomNumber}>
+                                <h4><b>Room No:</b> {item.roomNumber.toUpperCase()}</h4>
+                                <h4><b>Room Type:</b> {item.roomType.toLowerCase()}</h4>
+                                <h4><b>Capacity:</b> {item.capacity}</h4>
+                                <h4><b>Status:</b> {item.status}</h4>
+                                <button onClick={()=> displayDetails(item.id)} id='book-btn'>Add booking</button>
+                            </div> 
+                        </div>
+                    ))}
+                </div>   
             </main>
         </div>
     )

@@ -10,6 +10,17 @@ import '@schedule-x/theme-default/dist/index.css';
 
 
 export default function CalendarWithBookings() {
+ const [drawerOpen, setDrawerOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 600);
+            
+            useEffect(() => {
+              const handleResize = () => {
+                setIsMobile(window.innerWidth <= 600);
+              };
+              
+              window.addEventListener('resize', handleResize);
+              return () => window.removeEventListener('resize', handleResize);
+            }, []);
 
   const [fullName, setFullName] = useState('');
   useEffect(() => {
@@ -75,10 +86,34 @@ export default function CalendarWithBookings() {
   }, [events, eventsService]);
 
   return (
-    <div className="staff-dashboard"style={{display:'grid',gridTemplateColumns:'16rem auto'}}>
-                     {/* Sidebar */}
-      <Drawer variant="permanent" anchor="left"
-              PaperProps={{sx: { width: 250, backgroundColor: '#f5f5f5', paddingTop: 2 }}}>
+    <div className="staff-dashboard"style={{ display: isMobile ? 'block' : 'flex' }}>
+      
+      {isMobile && (
+        <Button 
+          onClick={() => setDrawerOpen(!drawerOpen)}
+          style={{ 
+          position: 'fixed', 
+          top: 16, 
+          left: 10, 
+          zIndex: 1200,
+          minWidth: 'auto', 
+          padding: '8px' }}>
+          <span className="material-icons" style={{ color: 'rgb(1,97,46)' }}>menu</span>
+        </Button>
+      )}
+      {/* Sidebar */}
+      <Drawer variant={isMobile ? "temporary" : "permanent"} 
+              anchor="left"
+              open={isMobile ? drawerOpen : true}
+              onClose={() => setDrawerOpen(false)}
+              PaperProps={{sx: { width: isMobile ? '100%' : 250, backgroundColor: '#f5f5f5', paddingTop: 2 }}}>
+        {isMobile && (
+          <ListItemButton onClick={() => setDrawerOpen(false)}>
+            <ListItemIcon>
+              <span className="material-icons" style={{color:'rgb(1,97,46)'}}>close</span>
+            </ListItemIcon>
+          </ListItemButton>
+        )}        
         <Box display="flex" flexDirection="column" alignItems="center" mb={2}>
           <Avatar src={profile} sx={{ width: 80, height: 80, mb: 1 }} />
           <Typography variant="h4">{fullName}</Typography>

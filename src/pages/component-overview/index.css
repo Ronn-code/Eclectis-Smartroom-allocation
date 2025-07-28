@@ -82,3 +82,43 @@ h3{
 }
 
 
+
+/* Mobile styles (600px and below) */
+@media (max-width: 600px) {
+  .staff-dashboard {
+    flex-direction: column;
+  }
+  
+  .MuiDrawer-paper {
+    width: 100% !important;
+    height: auto !important;
+    position: relative !important;
+  }
+  
+  .rooms-row {
+    flex-direction: column;
+  }
+  
+  .rooms {
+    width: 100% !important;
+    margin-bottom: 1rem;
+  }
+  
+  main {
+    padding: 1rem;
+    width: 100% !important;
+  }
+  
+  .main-top {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .main-top input,
+  .main-top select,
+  .main-top button {
+    width: 100% !important;
+  }
+}
+
+

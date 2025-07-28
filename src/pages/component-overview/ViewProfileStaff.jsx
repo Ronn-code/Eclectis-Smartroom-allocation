@@ -1,7 +1,6 @@
 import MainCard from 'components/MainCard';
 import { useEffect, useState } from 'react';
 import { Link,useNavigate } from 'react-router-dom';
-import avatar1 from 'assets/images/users/avatar-1.png';
 import profile from './images/profile3.jpg';
 import {Drawer,List,ListItem,ListItemButton,ListItemIcon,ListItemText,Avatar,Typography,Box,Button,TextField,} from '@mui/material';
 
@@ -14,6 +13,8 @@ export default function ViewProfileStaff() {
         const[role, setRole]= useState('');
         const[username, setUsername]= useState('');
         const [department, setDepartment] = useState('');
+
+        const [drawerOpen, setDrawerOpen] = useState(false);
     
         useEffect(() => {
               const token = localStorage.getItem('token');
@@ -31,15 +32,50 @@ export default function ViewProfileStaff() {
               })
               .catch(err => console.error(err));
             }, []);
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 600);
+      
+      useEffect(() => {
+        const handleResize = () => {
+          setIsMobile(window.innerWidth <= 600);
+        };
+        
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+      }, []);
+            
 
     return(
-        <div className="staff-dashboard">
-                     {/* Sidebar */}
+        <div className="staff-dashboard" style={{ display: isMobile ? 'block' : 'flex' }}>
+           {isMobile && (
+                <Button 
+                    onClick={() => setDrawerOpen(!drawerOpen)}
+                    style={{ 
+                        position: 'fixed', 
+                        top: 10, 
+                        left: 10, 
+                        zIndex: 1200,
+                        minWidth: 'auto', 
+                        padding: '4px' }}>
+                    <span className="material-icons" style={{ color: 'rgb(1,97,46)' }}>menu</span>
+                </Button>
+            )} 
+            {/* Sidebar */}
             <Drawer
-                variant="permanent"
+                variant={isMobile ? "temporary" : "permanent"}
                 anchor="left"
+                open={isMobile ? drawerOpen : true}
+                onClose={() => setDrawerOpen(false)}
                 PaperProps={{
-                sx: { width: 250, backgroundColor: '#f5f5f5', paddingTop: 2 }}}>
+                sx: { width: isMobile ? '100%' : 250, 
+                      backgroundColor: '#f5f5f5',
+                       paddingTop: 2 }}}>
+                {isMobile && (
+                    <ListItemButton onClick={() => setDrawerOpen(false)}>
+                        <ListItemIcon>
+                            <span className="material-icons" style={{color:'rgb(1,97,46)'}}>close</span>
+                        </ListItemIcon>
+                    </ListItemButton>
+                )}
                 <Box display="flex" flexDirection="column" alignItems="center" mb={2}>
                     <Avatar src={profile} sx={{ width: 80, height: 80, mb: 1 }} />
                     <Typography variant="h4">{fullName}</Typography>
@@ -87,31 +123,67 @@ export default function ViewProfileStaff() {
                 </List>
             </Drawer>
     
-            <main>
-                <MainCard title='View Profile' style={{width:'40%',marginTop:'1.2rem',marginLeft:'30%'}}>
-                            <div className="view-details">
-                                <div className="head" style={{display:'flex',gap:'2rem'}}>
-                                    <img src={profile} style={{borderRadius:'50%',height:'4rem'}}></img>
-                                    <h4>{username}</h4>
-                                </div>
-                                <ListItemButton >
-                                    <ListItemText primary="Username" secondary= {fullName} />
-                                </ListItemButton>
-                                <ListItemButton >
-                                    <ListItemText primary="Email" secondary={email} />
-                                </ListItemButton>
-                                <ListItemButton >
-                                    <ListItemText primary="Department" secondary={department} />
-                                </ListItemButton>
-                                <ListItemButton >
-                                    <ListItemText primary="Role" secondary={role} />
-                                </ListItemButton>
-                                <ListItemButton component={Link} to="/change/pwd"style={{height:'2rem',border:'1px solid rgb(1,97,46)',
-                                                width:'50%',marginLeft:'1.2rem',marginTop:'1.2rem',borderRadius:'5px',color:'black',textAlign:'center'}}>
-                                    <ListItemText primary="Change Password" />
-                                </ListItemButton>
-                            </div>
-                        </MainCard>
+            <main style={{marginTop: isMobile ? '60px' : '60px',
+                        marginLeft: isMobile ? '10px' : '300px',
+                        ...(isMobile && {
+                            width: '100%',
+                            padding: '1rem',
+                            boxSizing: 'border-box',
+                            overflowX: 'hidden',
+                            marginLeft: '0',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center'
+                    })}}>
+                <MainCard title='View Profile' style={{
+                                                  ...(!isMobile && {
+                                                    width:'600px',
+                                                    marginTop: '1.2rem',
+                                                    marginLeft: '30%',}),
+
+                                                  ...(isMobile && {
+                                                    width: '90%',
+                                                    margin: '1rem auto',
+                                                    padding: '1rem'})
+                                                }}>
+                    <div className="view-details">
+                        <div className="head" style={{display:'flex',
+                                                      gap: isMobile ? '1rem' : '2rem',
+                                                      alignItems: 'center',
+                                                      ...(isMobile && {
+                                                        flexDirection: 'column',
+                                                        textAlign: 'center'})
+                                                    }}>
+                            <img src={profile} style={{borderRadius:'50%',
+                                                       height: isMobile ? '3rem' : '4rem',
+                                                       width: isMobile ? '3rem' : '4rem',
+                                                       objectFit: 'cover'}}></img>
+                            <h4 style={isMobile ? { margin: '0.5rem 0' } : {}}>{username}</h4>
+                        </div>
+                        <ListItemButton >
+                            <ListItemText primary="Username" secondary= {fullName} />
+                        </ListItemButton>
+                        <ListItemButton >
+                            <ListItemText primary="Email" secondary={email} />
+                        </ListItemButton>
+                        <ListItemButton >
+                            <ListItemText primary="Department" secondary={department} />
+                        </ListItemButton>
+                        <ListItemButton >
+                            <ListItemText primary="Role" secondary={role} />
+                        </ListItemButton>
+                        <ListItemButton component={Link} to="/change/pwd"style={{height:'2rem',border:'1px solid rgb(1,97,46)',
+                                        width: isMobile ? '80%' : '50%',
+                                        marginLeft: isMobile ? 'auto' : '1.2rem',
+                                        marginRight: isMobile ? 'auto' : '0',
+                                        marginTop:'1.2rem',
+                                        borderRadius:'5px',
+                                        color:'black',
+                                        textAlign:'center'}}>
+                            <ListItemText primary="Change Password" />
+                        </ListItemButton>
+                    </div>
+                </MainCard>
             </main>
         </div>    
     );
