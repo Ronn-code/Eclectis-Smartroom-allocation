@@ -39,7 +39,7 @@ export default defineConfig(({ mode }) => {
         // },
       ]
     },
-    base: './',
+    base: '/',
     plugins: [react(), jsconfigPaths()],
     optimizeDeps: {
     include: ['react-dom/client']
