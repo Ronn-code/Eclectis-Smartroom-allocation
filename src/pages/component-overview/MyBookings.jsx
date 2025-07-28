@@ -160,7 +160,17 @@ export default function CalendarWithBookings() {
           </ListItemButton>
         </List>
       </Drawer>
-      <main style={{ height: '100vh', overflow: 'auto' }}>
+      <main style={{ height: '100vh', overflow: 'auto' ,
+                   ...(!isMobile && {
+                    marginLeft: '500px',
+                    width: 'calc(100%-250px)',
+                    padding:'1rem'
+                   }),
+                   ...(!isMobile && {
+                    height: 'calc(100vh-60px)',
+                    marginTop: '60px'
+                   })
+      }}>
         <div >
           <ScheduleXCalendar calendarApp={calendar} style={{height: '100%', width: '100%'}}/>
         </div>

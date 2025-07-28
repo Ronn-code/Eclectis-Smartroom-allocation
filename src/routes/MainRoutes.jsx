@@ -1,5 +1,6 @@
 import { lazy } from 'react';
 
+
 // project imports
 import Loadable from 'components/Loadable';
 import DashboardLayout from 'layout/Dashboard';
