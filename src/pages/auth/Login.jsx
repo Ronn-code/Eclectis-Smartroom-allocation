@@ -63,12 +63,14 @@ function Login() {
     <div className='login-page' style={{
             display: 'flex',
             width:'90%',
-            marginTop:'6rem',
             flexDirection: 'column',
             alignItems: 'center',
+            justifyContent: 'center',
             minHeight: '70vh',
-            padding: '20px',
-            boxSizing: 'border-box'}}>
+            padding: '1rem',
+            boxSizing: 'border-box',
+            maxWidth: '500px',
+            margin: '4rem auto'}}>
       <div className="top-login" style={{
             display: 'flex',
             flexDirection: 'column',
